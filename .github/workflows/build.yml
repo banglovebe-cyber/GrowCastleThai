@@ -472,7 +472,10 @@ jobs:
           include(":app")
           __EOF__
           mkdir -p app/src/main/assets
-          cp "$(ls ../*.zip | head -1)" app/src/main/assets/th.zip
+          Z="$(find .. -name '*.zip' -not -path '*/proj/*' -not -name 'GrowCastleThai_Project.zip' | head -1)"
+          echo "zip: $Z"
+          test -n "$Z"
+          cp "$Z" app/src/main/assets/th.zip
       - name: Build
         working-directory: proj
         run: gradle assembleDebug --no-daemon
